@@ -1,0 +1,13 @@
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 测试日志文件
+2025*_ALL.TXT
+
+# 临时文件
+*.log
+*.tmp
+
+# pyinstaller spec文件（如不需纳入版本管理）
+*.spec 
