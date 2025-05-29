@@ -10,4 +10,13 @@ __pycache__/
 *.tmp
 
 # pyinstaller spec文件（如不需纳入版本管理）
-*.spec 
+*.spec
+
+# 虚拟环境目录
+.venv/
+
+# 锁定文件
+uv.lock
+
+# pyproject.toml文件
+pyproject.toml 

@@ -1,0 +1,22 @@
+sequenceDiagram
+    participant 用户/OS
+    participant watchdog
+    participant JTDXLogMonitor
+    participant MessageQueue
+    participant Notifier
+    participant 企业微信/Server酱API
+
+    用户/OS->>watchdog: 启动监控目录
+    watchdog->>JTDXLogMonitor: 检测到日志文件变更
+    JTDXLogMonitor->>JTDXLogMonitor: 读取新日志行
+    JTDXLogMonitor->>JTDXLogMonitor: 解析FT8消息
+    JTDXLogMonitor->>JTDXLogMonitor: 判断呼号是否被ignore-call规则忽略
+    alt 呼号未被忽略
+        JTDXLogMonitor->>MessageQueue: 添加消息到队列
+    end
+    loop 每隔interval秒
+        MessageQueue->>Notifier: 批量发送消息
+        Notifier->>企业微信/Server酱API: 调用API推送消息
+        企业微信/Server酱API-->>Notifier: 返回推送结果
+        Notifier-->>MessageQueue: 反馈发送状态
+    end 
